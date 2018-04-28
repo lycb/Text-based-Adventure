@@ -40,7 +40,7 @@ public class Game
         //TODO handle commands
         if (command.equalsIgnoreCase("bag"))
         {
-            mainChar.getInventory();
+            System.out.println(mainChar.getInventory().toString());
         }
         if (command.equalsIgnoreCase("North"))
         {
@@ -133,7 +133,7 @@ public class Game
                     {
                         System.out.println("Jenny Ly: You already have this item. Find something else");
                     }
-                    else if (!mainChar.getInventory().empty() && !mainChar.getInventory().contains("sword"))
+                    if (!mainChar.getInventory().contains("sword"))
                     {
                         mainChar.getInventory().addItems("sword");
                         System.out.println("Jenny Ly: You have a sword in your inventory now");
@@ -280,9 +280,10 @@ public class Game
     {
 
 
-        beginning = new Map("WELCOME TO THE COMPUTER SCIENCE DEPARTMENT");
-        rules = new Map("Every room (but the store) has some objectives you can do. "
-            + "You must complete these objectives before you move on to the next room. \n"
+        beginning = new Map("WELCOME TO THE COMPUTER SCIENCE DEPARTMENT \n"
+            + "--------------------------------------------------------------------- \n"
+            + "Every room (but the store) has some objectives you can do. \n"
+            + "You must complete these objectives before you \nMove on to the next room. \n"
             + "--------------------------------------------------------------------- \n");
         lounge = new Map("This is the lounge area. Talk to Jenny to begin your quest.");
         store = new Map("You have entered Chris Waldon's office"); //Room 313
@@ -293,10 +294,9 @@ public class Game
         room318 = new Map("You have entered Room 318");
         room325 = new Map("You have entered Room 325");
 
-        beginning.setNorth(rules);
-
-        rules.setNorth(lounge);
-        lounge.setSouth(rules);
+        beginning.setNorth(lounge);
+      
+        lounge.setSouth(beginning);
 
         lounge.setEast(store);
 
@@ -338,6 +338,7 @@ public class Game
             while (keyboard.hasNext()) {
                 String command = keyboard.nextLine();
                 game.playPokemonCommands(command);
+                pokemonPrompt();
             }
         }
     }

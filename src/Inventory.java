@@ -64,6 +64,7 @@ public class Inventory
         }
         return false;
     }
+
     public boolean empty()
     {
         if (currentItems == 0)
@@ -80,7 +81,14 @@ public class Inventory
         {
             for (int i = 0; i < items.length; i++)
             {
-                list += items[i] + "\n";
+                if (items[i] != null)
+                {
+                    list += items[i] + "\n";
+                }
+                else
+                {
+                    list += "[ ]\n";
+                }
             }
         }
         else

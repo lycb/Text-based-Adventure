@@ -14,7 +14,7 @@ public class Store
         System.out.println("-----------------------------------------");
         System.out.println("What would you like to buy?");
         System.out.println("Available Items: ");
-        System.out.println("Potion: 100 coins || +25HP");
+        System.out.println("Potion: 200 coins || +100HP");
         System.out.println("Sword: 200 coins");
         System.out.println("Hammer: 200 coins");
         System.out.println("Bow and Arrow: 200 coins");

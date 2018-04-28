@@ -15,7 +15,7 @@ public class Character
         health = 100;
         coins = 1000;
         bag = new Inventory();
-        charDescription = "CHICKEN NUGGETS ARE MY FAVORITES";
+        charDescription = "My name is " + name;
         
     }  
     public Character(String name, boolean bot)

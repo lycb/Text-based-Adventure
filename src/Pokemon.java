@@ -1,8 +1,10 @@
+import java.util.Random;
+
 public class Pokemon
 {
     private int pokiHealth;
     private int yourHealth;
-   
+    private Random rand = new Random();
     
     public Pokemon()
     {
@@ -13,8 +15,9 @@ public class Pokemon
     
     public void fight()
     {
-        pokiHealth -= 10;
-        yourHealth -= 5;
+        System.out.println("You attacked the mysterious Pokemon!!!");
+        pokiHealth -= rand.nextInt(11);
+        yourHealth -= rand.nextInt(11);
         
         if (pokiHealth > 0 && yourHealth > 0)
         {
@@ -47,7 +50,7 @@ public class Pokemon
     {
         if (pokiHealth < 11)
         {
-            System.out.println("You caught the pokemon");
+            System.out.println("You caught the Pokemon!!!!");
             bye();
             System.exit(-1);
         }
