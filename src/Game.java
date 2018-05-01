@@ -5,10 +5,10 @@ public class Game
 {
     private static Map currentLocation;
     private static Character mainChar;
-    private static Character jennyBot = new Character("Jenny", true);
-    private static Character waldonBot = new Character("Chris Waldon", true);
-    private static Character swansonBot = new Character("Joel Swanson", true);
-    private static Character watersBot = new Character("Chad Waters", true);
+    //private static Character jennyBot = new Character("Jenny", true);
+    //private static Character waldonBot = new Character("Chris Waldon", true);
+    //private static Character swansonBot = new Character("Joel Swanson", true);
+    //private static Character watersBot = new Character("Chad Waters", true);
     private static Map beginning = null;
     private static Map rules = null;
     private static Map lounge = null;
@@ -22,7 +22,7 @@ public class Game
     private static Scanner keyboard = new Scanner(System.in);
     private static Pokemon game = null;
     private static Store storeObj = null;
-    private Random rand = new Random();
+    private static Random rand = new Random();
 
 
     public Game(Map startingLocation)
@@ -38,10 +38,6 @@ public class Game
     public void handleCommand(String command)
     {
         //TODO handle commands
-        if (command.equalsIgnoreCase("bag"))
-        {
-            System.out.println(mainChar.getInventory().toString());
-        }
         if (command.equalsIgnoreCase("North"))
         {
             this.currentLocation = currentLocation.getNorth();
@@ -58,101 +54,83 @@ public class Game
         {
             this.currentLocation = currentLocation.getSouth();
         }
-        if (command.equalsIgnoreCase("talk"));
+        else if (command.equalsIgnoreCase("quests"));
         {
-            if (currentLocation == lounge || currentLocation == room309)
+            if (currentLocation == lounge)
             {
-                robotPrompt(jennyBot);
+                
+                if (mainChar.getInventory().size() == 1)
+                {
+                    System.out.println("You have [" + mainChar.getInventory().size() + "] item(s) in your bag." );
+                    System.out.println("You can move on to the next room now.");
+                }
+                else
+                {
+                    System.out.println("You are in the lounge, use the find command to find items");
+                }
             }
-            if (currentLocation == store || currentLocation == room318)
+            if (currentLocation == room309)
             {
-                robotPrompt(waldonBot);
+                roomQuest(room309);
+            }
+            if (currentLocation == store)
+            {
+                roomQuest(store);
+            }
+            if (currentLocation == room318)
+            {
+                roomQuest(room318);
             }
             if (currentLocation == room325)
             {
-                robotPrompt(swansonBot);
+                roomQuest(room325);
             }
         }
+        if (command.equalsIgnoreCase("bag"))
+        {
+            System.out.println(mainChar.getInventory().toString());
+        }
+        
         if (command.equalsIgnoreCase("exits"))
         {
+            /*
             try
+            {*/
+            if (currentLocation.getNorth()!= null)
             {
-                if (currentLocation.getNorth()!= null)
-                {
-                    System.out.println("north");
-                }
-                if (currentLocation.getSouth()!= null)
-                {
-                    System.out.println("south");
-                }
-                if (currentLocation.getEast()!= null)
-                {
-                    System.out.println("east");
-                }
-                if (currentLocation.getWest()!= null)
-                {
-                    System.out.println("west");
-                }
+                System.out.println("north");
             }
+            if (currentLocation.getSouth()!= null)
+            {
+                System.out.println("south");
+            }
+            if (currentLocation.getEast()!= null)
+            {
+                System.out.println("east");
+            }
+            if (currentLocation.getWest()!= null)
+            {
+                System.out.println("west");
+            }
+            //}
+            /*
             catch(NullPointerException e)
             {
                 System.out.println("Dead end. Go somewhere else");
                 prompt();
-            }
-        }
-        if (command.equalsIgnoreCase("action"))
-        {
-            try
-            {
-                if (currentLocation.equals(store))
-                {
-                    System.out.println("buy");
-                    System.out.println("talk");
-                }
-                if (currentLocation.equals(lounge))
-                {
-                    System.out.println("talk");
-                    System.out.println("find");
-                }
-
-            }
-            catch (NullPointerException j)
-            {
-                System.out.println("Not a valid command");
-            }
+            } */
         }
         if (command.equalsIgnoreCase("find"))
         {
             if (currentLocation.equals(lounge))
             {
-                int i = rand.nextInt(11);
-                if (i % 2 == 0)
-                {
-                    System.out.println("Jenny Ly: You found a sword");
-                    if (mainChar.getInventory().contains("sword"))
-                    {
-                        System.out.println("Jenny Ly: You already have this item. Find something else");
-                    }
-                    if (!mainChar.getInventory().contains("sword"))
-                    {
-                        mainChar.getInventory().addItems("sword");
-                        System.out.println("Jenny Ly: You have a sword in your inventory now");
-                    }
-                }
-                else
-                {
-                    System.out.println("Jenny Ly: You found potion");
-                    if (mainChar.getInventory().contains("potion"))
-                    {
-                        System.out.println("Jenny Ly: You already have this item. Find something else");
-                    }
-                    else if (!mainChar.getInventory().empty() && !mainChar.getInventory().contains("potion"))
-                    {
-                        mainChar.getInventory().addItems("potion");
-                        System.out.println("Jenny Ly: You have a potion in your inventory now. It can restore 100& of your health");
-                    }
-                }
+                roomQuest(lounge);
             }
+        }
+        
+        if (command.equalsIgnoreCase("stats"))
+        {
+            printStats();
         }
     }
 
@@ -162,6 +140,7 @@ public class Game
         System.out.flush();
     } 
 
+    /*
     public static void robotPrompt(Character bot)
     {
         if (bot == jennyBot)
@@ -202,23 +181,12 @@ public class Game
                 System.out.println("Swanson: Click if you are here. Then solve the puzzle.");
             }
         }
-
-
     }
+     */
     public static void prompt()
     {
         System.out.print("command > ");
         System.out.flush();
-    }
-    public static void playPokemon()
-    {
-        System.out.println("YOU HAVE ENCOUNTERED A POKEMON");
-
-    }
-
-    public static void pokemonPrompt()
-    {
-        System.out.print("Fight, run, or catch!> ");
     }
     public static void printStats()
     {
@@ -231,50 +199,248 @@ public class Game
     {
         if (room == lounge)
         {
-            //find item
-        }
-        if (room == room309)
-        {
-            //fight java monster
-        }
-        if (room == room310)
-        {
-            //find items
-        }
-        if (room == room311)
-        {
-            //find eclipse monster
-        }
-        if (room == room317)
-        {
-            //fight the C monster
-        }
-        if (room == room318)
-        {
-            //find items
-        }
-        if (room == room325)
-        {
-            Puzzle binary = new Puzzle();
-            int answer = keyboard.nextInt();
-            if(binary.checkAnswer(answer))
+            int i = rand.nextInt(11);
+            if (i % 2 == 0)
             {
-                System.out.println("CORRECT! you can move on to another room now");
+                System.out.println("You found a sword");
+                if (mainChar.getInventory().contains("sword"))
+                {
+                    System.out.println("You already have this item. Find something else");
+                }
+                if (!mainChar.getInventory().contains("sword"))
+                {
+                    mainChar.getInventory().addItems("sword");
+                    System.out.println("You have a sword in your inventory now");
+                }
             }
             else
             {
-                System.out.println("YOU FAILED");
-
+                System.out.println("You found potion");
+                if (mainChar.getInventory().contains("potion"))
+                {
+                    System.out.println("You already have this item. Find something else");
+                }
+                if (!mainChar.getInventory().contains("potion"))
+                {
+                    mainChar.getInventory().addItems("potion");
+                    System.out.println("You have a potion in your inventory now. "
+                        + "It can restore 100% of your health");
+                }
             }
-
         }
-        if (room == store)
+        if (room == room309)
         {
-            storeObj = new Store();
-            String item = keyboard.nextLine();
-            storeObj.buyingPrompt();
-            storeObj.buy(item, mainChar);
+            Monster mon = new Monster(mainChar);
+            mon.play();
+            System.out.println("You have encountered the JAVA monster");
+            mon.prompt();
+            while(keyboard.hasNext())
+            {
+                String command = keyboard.nextLine();
+                if (command.equalsIgnoreCase("fight"))
+                {
+                    mon.fight(mainChar.getInventory());
+                }
+                if (command.equalsIgnoreCase("heal"))
+                {
+                    mon.heal(mainChar.getInventory());
+                }
+                if (command.equalsIgnoreCase("run"))
+                {
+                    mon.run();
+                    System.out.println("You cannot escape!");
+                    game = new Pokemon(mainChar);
+                    game.playPokemon();
+                    game.pokemonPrompt();
+                    while (keyboard.hasNext()) {
+                        String com = keyboard.nextLine();
+                        game.playPokemonCommands(com);
+                        game.pokemonPrompt();
+                    }
+                }
+                else
+                {
+                    System.out.println("not a valid command");
+                    mon.prompt();
+                }
+            }
+            if (room == room310)
+            {
+                int i = rand.nextInt(11);
+                
+                if (i % 2 == 0)
+                {
+                    System.out.println("You found a sword");
+                    if (mainChar.getInventory().contains("sword"))
+                    {
+                        System.out.println("You already have this item. Find something else");
+                    }
+                    if (!mainChar.getInventory().contains("sword"))
+                    {
+                        mainChar.getInventory().addItems("sword");
+                        System.out.println("You have a sword in your inventory now");
+                    }
+                }
+                else if (i % 2 != 0)
+                {
+                    System.out.println("You found potion");
+                    if (mainChar.getInventory().contains("potion"))
+                    {
+                        System.out.println("You already have this item. Find something else");
+                    }
+                    else if (!mainChar.getInventory().contains("potion"))
+                    {
+                        mainChar.getInventory().addItems("potion");
+                        System.out.println("You have a potion in your inventory now. "
+                            + "It can restore 100& of your health");
+                    }
+                }
+                
+            }
+            if (room == room311)
+            {
+                Monster tues = new Monster(mainChar);
+                tues.play();
+                System.out.println("You have encountered the ECLIPSE monster");
+                tues.prompt();
+                while(keyboard.hasNext())
+                {
+                    try
+                    {
+                        String command = keyboard.nextLine();
+                        if (command.equalsIgnoreCase("fight"))
+                        {
+                            tues.fight(mainChar.getInventory());
+                        }
+                        if (command.equalsIgnoreCase("heal"))
+                        {
+                            tues.heal(mainChar.getInventory());
+                        }
+                        if (command.equalsIgnoreCase("run"))
+                        {
+                            tues.run();
+                            throw new Exception("You cannot escape");
+                        }
+
+                        else
+                        {
+                            System.out.println("not a valid command");
+                            tues.prompt();
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        game = new Pokemon(mainChar);
+                        game.playPokemon();
+                        game.pokemonPrompt();
+                        while (keyboard.hasNext()) {
+                            String command = keyboard.nextLine();
+                            game.playPokemonCommands(command);
+                            game.pokemonPrompt();
+                        }
+                    }
+                }
+                if (room == room317)
+                {
+                    Monster weds = new Monster(mainChar);
+                    weds.play();
+                    System.out.println("You have encountered the GO monster");
+                    weds.prompt();
+                    while(keyboard.hasNext())
+                    {
+                        try
+                        {
+                            String command = keyboard.nextLine();
+                            if (command.equalsIgnoreCase("fight"))
+                            {
+                                weds.fight(mainChar.getInventory());
+                            }
+                            if (command.equalsIgnoreCase("heal"))
+                            {
+                                weds.heal(mainChar.getInventory());
+                            }
+                            if (command.equalsIgnoreCase("run"))
+                            {
+                                weds.run();
+                                throw new Exception("You cannot escape");
+                            }
+
+                            else
+                            {
+                                System.out.println("not a valid command");
+                                weds.prompt();
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            game = new Pokemon(mainChar);
+                            game.playPokemon();
+                            game.pokemonPrompt();
+                            while (keyboard.hasNext()) {
+                                String command = keyboard.nextLine();
+                                game.playPokemonCommands(command);
+                                game.pokemonPrompt();
+                            }
+                        }
+                    }
+                }
+                if (room == room318)
+                {
+                    int i = rand.nextInt(11);
+                    if (i % 2 == 0)
+                    {
+                        System.out.println("You found a sword");
+                        if (mainChar.getInventory().contains("sword"))
+                        {
+                            System.out.println("You already have this item. Find something else");
+                        }
+                        if (!mainChar.getInventory().contains("sword"))
+                        {
+                            mainChar.getInventory().addItems("sword");
+                            System.out.println("You have a sword in your inventory now");
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("You found potion");
+                        if (mainChar.getInventory().contains("potion"))
+                        {
+                            System.out.println("You already have this item. Find something else");
+                        }
+                        else if (!mainChar.getInventory().empty() 
+                            && !mainChar.getInventory().contains("potion"))
+                        {
+                            mainChar.getInventory().addItems("potion");
+                            System.out.println("You have a potion in your inventory now. "
+                                + "It can restore 100& of your health");
+                        }
+                    }
+                }
+                if (room == room325)
+                {
+                    Puzzle binary = new Puzzle();
+                    System.out.println("Solve this and move on: "
+                        + binary.generatePuzzle());
+                    String answer = keyboard.nextLine();
+                    if (binary.check(answer))
+                    {
+                        System.out.println("You can continue.");           
+                    }
+                    else
+                    {
+                        System.out.println("You've got the wrong answer.");
+                    }
+                }
+                if (room == store)
+                {
+                    storeObj = new Store();
+                    String item = keyboard.nextLine();
+                    storeObj.buyingPrompt();
+                    storeObj.buy(item, mainChar);
+                }
+            }
         }
+
     }
     public static void main(String[] args)
     {
@@ -282,10 +448,10 @@ public class Game
 
         beginning = new Map("WELCOME TO THE COMPUTER SCIENCE DEPARTMENT \n"
             + "--------------------------------------------------------------------- \n"
-            + "Every room (but the store) has some objectives you can do. \n"
-            + "You must complete these objectives before you \nMove on to the next room. \n"
+            + "> Every room (but the store) has some objectives you can do. \n"
+            + "> You must complete these objectives before you \n> move on to the next room. \n"
             + "--------------------------------------------------------------------- \n");
-        lounge = new Map("This is the lounge area. Talk to Jenny to begin your quest.");
+        lounge = new Map();
         store = new Map("You have entered Chris Waldon's office"); //Room 313
         room309 = new Map("You have entered Room 309");
         room310 = new Map("You have entered Room 310");    
@@ -295,12 +461,28 @@ public class Game
         room325 = new Map("You have entered Room 325");
 
         beginning.setNorth(lounge);
-      
         lounge.setSouth(beginning);
 
-        lounge.setEast(store);
+        lounge.setEast(room309);
+        room309.setWest(lounge);
 
+        lounge.setWest(room325);
+        room325.setEast(lounge);
 
+        lounge.setNorth(room318);
+        room318.setSouth(lounge);
+
+        room318.setNorth(room317);
+        room317.setSouth(room318);
+
+        room309.setNorth(room310);
+        room310.setSouth(room309);
+
+        room310.setNorth(room311);
+        room311.setSouth(room310);
+
+        room311.setWest(store);
+        store.setEast(room311);
 
         try
         {
@@ -311,7 +493,6 @@ public class Game
             namePrompt();
             String name = keyboard.nextLine();
             mainChar = new Character(name);
-
             System.out.println(mainChar.getCharDescription());
             printStats();
             System.out.println(g.describe());
@@ -322,23 +503,20 @@ public class Game
                 g.handleCommand(command);
                 if (!command.equalsIgnoreCase("exits"))
                 {
-                    g.describe();
+                    System.out.println(g.describe());
                 }
                 prompt();
             }
-
-
-
         }
         catch (NullPointerException e)
         {
-            game = new Pokemon();
-            playPokemon();
-            pokemonPrompt();
+            game = new Pokemon(mainChar);
+            game.playPokemon();
+            game.pokemonPrompt();
             while (keyboard.hasNext()) {
                 String command = keyboard.nextLine();
                 game.playPokemonCommands(command);
-                pokemonPrompt();
+                game.pokemonPrompt();
             }
         }
     }

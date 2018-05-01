@@ -2,7 +2,7 @@
 public class Inventory
 {
     private String[] items;
-    private int currentItems = 0;
+    private static int currentItems = 0;
 
     public Inventory()
     {
@@ -14,8 +14,13 @@ public class Inventory
         items[currentItems] = thing;
         currentItems++;
     }
+    
+    public int size()
+    {
+        return currentItems;
+    }
 
-    private String useItems(String thing)
+    public void useItems(String thing)
     {
         int selectedItem = 0;
         int temp = 0;
@@ -38,12 +43,15 @@ public class Inventory
                     {
                         selectedItem = temp;
                     }
-                    return items[selectedItem];
+                    //return items[selectedItem];
                 }
             }
             currentItems--;
         }
-        return "cannot find items";
+        else
+        {
+            System.out.println("Cannot find items!");
+        }
     }
 
     public boolean contains(String item)

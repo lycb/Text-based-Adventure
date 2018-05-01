@@ -1,142 +1,110 @@
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Stack;
 public class Puzzle
 {
-    private Stack<Integer> binary = null;
+    //HashMap, getKeySet collection of keys, randomize order of the keyset (put in array or arraylist then randomize order)
+    private HashMap<String, String> binary = null;
     public Puzzle()
     {
-        binary = new Stack<Integer>();
-        for (int i = 0; i < 16; i++)
-        {
-            binary.push(generatePuzzle());
-        }
+        binary = new HashMap<String, String>(16);
+        binary.put("0000", "0");
+        binary.put("0001", "1");
+        binary.put("0010", "2");
+        binary.put("0011", "3");
+        binary.put("0100", "4");
+        binary.put("0101", "5");
+        binary.put("0110", "6");
+        binary.put("0111", "7");
+        binary.put("1000", "8");
+        binary.put("1001", "9");
+        binary.put("1010", "10");
+        binary.put("1011", "11");
+        binary.put("1100", "12");
+        binary.put("1101", "13");
+        binary.put("1110", "14");
+        binary.put("1111", "15");      
     }
     
-    public boolean checkAnswer(int answer)
+    public boolean check(String bin)
     {
-        boolean result = false;
-        //TODO check answer for the generate puzzle
-        return result;
+        boolean correct = false;
+        if (binary.containsKey(bin))
+        {
+            if (binary.get(bin).equals(answer(bin)))
+            {
+                correct = true;
+            }
+        }
+        else
+        {
+            correct = false;
+        }
+        return correct;
     }
 
-    public Integer nextBinary()
-    {
-        return binary.pop();
-    }
-
-    public int generatePuzzle()
+    public String generatePuzzle()
     {
         Random rand = new Random();
-        int puzzleNum = 0;
         int randomNum = rand.nextInt(16);
-        switch(randomNum)
-        {
-            case 0:
-                puzzleNum = 0000;
-                break;
-            case 1:
-                puzzleNum = 0001;
-                break;
-            case 2:
-                puzzleNum = 0010;
-                break;
-            case 3:
-                puzzleNum = 0011;
-                break;
-            case 4:
-                puzzleNum = 0100;
-                break;
-            case 5:
-                puzzleNum = 0101;
-                break;
-            case 6:
-                puzzleNum = 0110;
-                break;
-            case 7:
-                puzzleNum = 0111;
-                break;
-            case 8:
-                puzzleNum = 1000;
-                break;
-            case 9:
-                puzzleNum = 1001;
-                break;
-            case 10:
-                puzzleNum = 1010;
-                break;
-            case 11:
-                puzzleNum = 1011;
-                break;
-            case 12:
-                puzzleNum = 1100;
-                break;
-            case 13:
-                puzzleNum = 1101;
-                break;
-            case 14:
-                puzzleNum = 1110;
-                break;
-            case 15:
-                puzzleNum = 1111;
-                break;
-        }
-        return puzzleNum;
+        String convert = randomNum + "";
+        return binary.get(convert);
     }
-    public int answer(int bin) throws Exception
+    public String answer(String bin) 
     {
-        int ans = 0;
+        String ans = "";
         switch(bin)
         {
-            case 0000:
-                ans = 0;
+            case "0000":
+                ans = "0";
                 break;
-            case 0001:
-                ans = 1;
+            case "0001":
+                ans = "1";
                 break;
-            case 0010:
-                ans = 2;
+            case "0010":
+                ans = "2";
                 break;
-            case 0011:
-                ans = 3;
+            case "0011":
+                ans = "3";
                 break;
-            case 0100:
-                ans = 4;
+            case "0100":
+                ans = "4";
                 break;
-            case 0101:
-                ans = 5;
+            case "0101":
+                ans = "5";
                 break;
-            case 0110:
-                ans = 6;
+            case "0110":
+                ans = "6";
                 break;
-            case 0111:
-                ans = 7;
+            case "0111":
+                ans = "7";
                 break;
-            case 1000:
-                ans = 8;
+            case "1000":
+                ans = "8";
                 break;
-            case 1001:
-                ans = 9;
+            case "1001":
+                ans = "9";
                 break;
-            case 1010:
-                ans = 10;
+            case "1010":
+                ans = "10";
                 break;
-            case 1011:
-                ans = 11;
+            case "1011":
+                ans = "11";
                 break;
-            case 1100:
-                ans = 12;
+            case "1100":
+                ans = "12";
                 break;
-            case 1101:
-                ans = 13;
+            case "1101":
+                ans = "13";
                 break;
-            case 1110:
-                ans = 14;
+            case "1110":
+                ans = "14";
                 break;
-            case 1111:
-                ans = 15;
+            case "1111":
+                ans = "15";
                 break;
             default:
-                throw new Exception("not a valid puzzle");
+                System.out.println("Not valid.");
         }
         return ans;
     }

@@ -5,19 +5,17 @@ public class Pokemon
     private int pokiHealth;
     private int yourHealth;
     private Random rand = new Random();
-    
-    public Pokemon()
+    public Pokemon(Character mainChar)
     {
-        pokiHealth = 20;
-        yourHealth = 30;
-        
+        pokiHealth = 100;
+        yourHealth = mainChar.getHealth();
     }
     
     public void fight()
     {
         System.out.println("You attacked the mysterious Pokemon!!!");
-        pokiHealth -= rand.nextInt(11);
-        yourHealth -= rand.nextInt(11);
+        pokiHealth -= rand.nextInt(50);
+        yourHealth -= rand.nextInt(50);
         
         if (pokiHealth > 0 && yourHealth > 0)
         {
@@ -48,7 +46,7 @@ public class Pokemon
     
     public void catchP()
     {
-        if (pokiHealth < 11)
+        if (pokiHealth < 20)
         {
             System.out.println("You caught the Pokemon!!!!");
             bye();
@@ -99,6 +97,14 @@ public class Pokemon
         {
             catchP();
         }
-        
+    }
+    public void playPokemon()
+    {
+        System.out.println("YOU HAVE ENCOUNTERED A POKEMON");
+    }
+
+    public void pokemonPrompt()
+    {
+        System.out.print("Fight, run, or catch!> ");
     }
 }

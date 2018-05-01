@@ -5,7 +5,7 @@ public class Map
     
     public Map()
     {
-        description = null;
+        this.description = null;
     }
     
     public Map(String description)
@@ -18,9 +18,9 @@ public class Map
         return description;
     }
     
-    public void setDescription(String desc)
+    public void setDescription(String description)
     {
-        this.description = desc;
+        this.description = description;
     }
     
     public Map getNorth()
