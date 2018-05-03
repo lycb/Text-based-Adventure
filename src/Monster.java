@@ -37,14 +37,13 @@ public class Monster
             || bag.contains("bow and arrow"))
         {
             System.out.println("You have attacked the Java compiler!!!");
-            monsterHealth -= rand.nextInt(20);
-            yourHealth -= rand.nextInt(20);
+            monsterHealth -= rand.nextInt(50);
+            yourHealth -= rand.nextInt(10);
             printStats();
             
             if (!mAlive())
             {
                 System.out.println("You win!");
-                bye();
             }
             if (!yAlive())
             {
@@ -52,14 +51,16 @@ public class Monster
                 bye();
             }
         }
-        else
+        else if (!bag.contains("sword")
+            || !bag.contains("hammer")
+            || !bag.contains("bow and arrow"))
         {
             System.out.println("You cannot fight the monster without weapons.");
             System.out.println("Go to the store or go to the lounge and find items");
         }
         
     }
-    
+   
     public void printStats()
     {
         if (monsterHealth > 0 && yourHealth > 0)
@@ -86,21 +87,36 @@ public class Monster
             }
             printStats();
         }
-        else
+        else if (!bag.contains("potion"))
         {
-            System.out.println("Cannot heal! There aren't any potions");
+            System.out.println("> Cannot heal! There aren't any potions");
         }
     }
     
-    public void run()
+    public boolean run(Inventory bag)
     {
-        System.out.println("You decided to run");
+        boolean runable = false;
+        System.out.println("> You decided to run");
+        if (!(monsterHealth < 20))
+        {
+            if (!bag.contains("sword")
+               && !bag.contains("hammer")
+                && !bag.contains("bow and arrows"))
+            {
+                runable = true;
+            }
+            else
+            {
+                System.out.println("> You cannot run! Monster is not weak enough.");
+            }
+        }
+        else
+        {
+            runable = true;
+        }
+        return runable;
     }
     
-    public void play()
-    {
-        System.out.println("You must fight the monster to move on");
-    }
     
     public void prompt()
     {

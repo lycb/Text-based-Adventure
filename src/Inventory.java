@@ -6,15 +6,18 @@ public class Inventory
 
     public Inventory()
     {
-        items = new String[5];
+        items = new String[4];
     }
 
     public void addItems(String thing)
     {
-        items[currentItems] = thing;
-        currentItems++;
+        if (currentItems > 4)
+        {
+            System.out.println("> Inventory is FULL");
+        }
+        items[currentItems++] = thing;
     }
-    
+
     public int size()
     {
         return currentItems;
@@ -56,18 +59,18 @@ public class Inventory
 
     public boolean contains(String item)
     {
-        if (empty())
-        {
-            return false;
-        }
-        else if (!empty())
+        if (!empty())
         {
             for (int i = 0; i < items.length; i++)
             {
-                if (items[i].equals(item))
+                if (item == null || items[i] == null)
+                {
+                    continue;
+                }
+                if (item.equalsIgnoreCase(items[i]))
                 {
                     return true;
-                }
+                }      
             }
         }
         return false;

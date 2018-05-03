@@ -26,7 +26,7 @@ public class Puzzle
         binary.put("1111", "15");      
     }
     
-    public boolean check(String bin)
+    public boolean check(String puz, String bin)
     {
         boolean correct = false;
         if (binary.containsKey(bin))
@@ -45,63 +45,67 @@ public class Puzzle
 
     public String generatePuzzle()
     {
-        Random rand = new Random();
-        int randomNum = rand.nextInt(16);
-        String convert = randomNum + "";
-        return binary.get(convert);
+        //Random rand = new Random();
+        //int randomNum = rand.nextInt(15);
+        //String convert = randomNum + "";
+        if (binary.get(15) != null)
+        {
+            return binary.get(15);
+        }
+        return "0000";
     }
     public String answer(String bin) 
     {
         String ans = "";
         switch(bin)
         {
-            case "0000":
-                ans = "0";
+            case "0":
+                ans = "0000";
                 break;
-            case "0001":
-                ans = "1";
+            case "1":
+                ans = "0001";
                 break;
-            case "0010":
-                ans = "2";
+            case "2":
+                ans = "0010";
                 break;
-            case "0011":
-                ans = "3";
+            case "3":
+                ans = "0011";
                 break;
-            case "0100":
-                ans = "4";
+            case "4":
+                ans = "0100";
                 break;
-            case "0101":
-                ans = "5";
+            case "5":
+                ans = "0101";
                 break;
-            case "0110":
-                ans = "6";
+            case "6":
+                ans = "0110";
                 break;
-            case "0111":
-                ans = "7";
+            case "7":
+                ans = "0111";
                 break;
-            case "1000":
-                ans = "8";
+            case "8":
+                ans = "1000";
                 break;
-            case "1001":
-                ans = "9";
+            case "9":
+                ans = "1001";
                 break;
-            case "1010":
-                ans = "10";
+            case "10":
+                ans = "1010";
                 break;
-            case "1011":
-                ans = "11";
+            case "11":
+                ans = "1011";
                 break;
-            case "1100":
-                ans = "12";
+            case "12":
+                ans = "1100";
                 break;
-            case "1101":
-                ans = "13";
+            case "13":
+                ans = "1101";
                 break;
-            case "1110":
-                ans = "14";
+            case "14":
+                ans = "1110";
                 break;
-            case "1111":
-                ans = "15";
+            case "15":
+                ans = "1111";
                 break;
             default:
                 System.out.println("Not valid.");

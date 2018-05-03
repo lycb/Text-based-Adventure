@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Character
 {
     private String name;
@@ -7,7 +5,6 @@ public class Character
     private int coins;
     private Inventory bag;
     private String charDescription;
-    private boolean bot;
     
     public Character(String name)
     {
@@ -21,7 +18,6 @@ public class Character
     public Character(String name, boolean bot)
     {
         this.name = name;
-        this.bot = bot;
         health = 10000000;
         coins = 1000000;
         bag = null;

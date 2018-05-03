@@ -2,22 +2,20 @@
 public class Store
 {
     Map store;
-    String[] listOfItems = {"potion", "sword", "hammer", "bow and arrow", "armor"};
-    String[] identities = {"Chris Waldon", "Joel Swanson"};
     public Store()
     {
-        store = new Map("Welcome to Chris Waldon's Office");
+        store = new Map("> Welcome to the store!");
     }
 
     public void buyingPrompt()
     {
         System.out.println("-----------------------------------------");
-        System.out.println("What would you like to buy?");
-        System.out.println("Available Items: ");
-        System.out.println("Potion: 200 coins || +100HP");
-        System.out.println("Sword: 200 coins");
-        System.out.println("Hammer: 200 coins");
-        System.out.println("Bow and Arrow: 200 coins");
+        System.out.println("> What would you like to buy?");
+        System.out.println("> Available Items: ");
+        System.out.println("> Potion: 200 coins || +100HP");
+        System.out.println("> Sword: 200 coins");
+        System.out.println("> Hammer: 200 coins");
+        System.out.println("> Bow and Arrows: 200 coins");
         System.out.println("-----------------------------------------");
     }
 
@@ -28,13 +26,13 @@ public class Store
             case "potion":
                 if (mainChar.getHealth() < 100)
                 {
-                    mainChar.setHealth(mainChar.getHealth() + 25);
-                    mainChar.setCoins(mainChar.getCoins() - 100);
+                    mainChar.setHealth(mainChar.getHealth() + 100);
+                    mainChar.setCoins(mainChar.getCoins() - 200);
                 }
                 else
                 {
-                    System.out.println("full health");
-                    mainChar.setCoins(mainChar.getCoins() - 100);
+                    System.out.println("> full health.\n"
+                        + "> cannot buy potion");
                 }
                 break;
             case "sword":

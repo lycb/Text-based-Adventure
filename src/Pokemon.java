@@ -10,59 +10,67 @@ public class Pokemon
         pokiHealth = 100;
         yourHealth = mainChar.getHealth();
     }
-    
+
     public void fight()
     {
-        System.out.println("You attacked the mysterious Pokemon!!!");
+        System.out.println("> You attacked the mysterious Pokemon!!!");
         pokiHealth -= rand.nextInt(50);
-        yourHealth -= rand.nextInt(50);
-        
+        yourHealth -= rand.nextInt(40);
+
         if (pokiHealth > 0 && yourHealth > 0)
         {
             System.out.println("Pokemon's HP: " + pokiHealth);
             System.out.println("Your HP: " + yourHealth);
         }
-        
+
         if (!pAlive())
         {
-            System.out.println("You win!");
+            System.out.println("> You win!");
             bye();
             System.exit(-1);
         }
         if (!yAlive())
         {
-            System.out.println("You died!");
+            System.out.println("> You died!");
             bye();
             System.exit(-1);
         }
     }
-    
-    public void run() {
-        System.out.println("You got away\n"
-            + "but you died because you slipped on a banana");
-        bye();
-        System.exit(-1);
+
+    public void run() 
+    {
+        if (pokiHealth > 70)
+        {
+            System.out.println("> You cannot get away");
+        }
+        else
+        {
+            System.out.println("> You got away\n"
+                + "> but you died because you slipped on a banana");
+            bye();
+            System.exit(-1);
+        }
     }
-    
+
     public void catchP()
     {
         if (pokiHealth < 20)
         {
-            System.out.println("You caught the Pokemon!!!!");
+            System.out.println("> You caught the Pokemon!!!!");
             bye();
             System.exit(-1);
         }
         else
         {
-            System.out.println("Pokemon escaped");
+            System.out.println("> Pokemon escaped");
             bye();
             System.exit(-1);
         }
     }
-    
+
     public void bye()
     {
-        System.out.println("GAME OVER");
+        System.out.println("> GAME OVER");
     }
     public boolean pAlive()
     {
@@ -70,10 +78,10 @@ public class Pokemon
         {
             return false;
         }
-        
+
         return true;
     }
-    
+
     public boolean yAlive() {
         if (yourHealth <= 0)
         {
@@ -81,7 +89,15 @@ public class Pokemon
         }
         return true;
     }
-   
+
+    public boolean escapedP(String s)
+    {
+        if (s.equals("> Pokemon escaped"))
+        {
+            return true;
+        }
+        return false;
+    }
 
     public void playPokemonCommands(String command)
     {
@@ -100,7 +116,7 @@ public class Pokemon
     }
     public void playPokemon()
     {
-        System.out.println("YOU HAVE ENCOUNTERED A POKEMON");
+        System.out.println("> YOU HAVE ENCOUNTERED A POKEMON");
     }
 
     public void pokemonPrompt()
